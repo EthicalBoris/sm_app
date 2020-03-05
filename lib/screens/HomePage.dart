@@ -1,4 +1,6 @@
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,41 +10,75 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(     
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Theme.of(context).backgroundColor,
-          title: Text(
-            "App Header",
-            style: TextStyle(fontSize: 30),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.blue, Colors.red],
         ),
+      ),
+      child: Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         body: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.blue, Colors.blueGrey],
-              ),
-            ),
-            child: SizedBox(
-              width: 100.0,
-              height: 100.0,
-              child: Card(
-                child: Text(
-                  "Test",
-                  style: TextStyle(
-                    //color: Colors.white,
-                    fontSize: 48.0,
-                    fontWeight: FontWeight.bold,
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 100.0,
+                height: 100.0,
+                child: Card(
+                  child: Text(
+                    "Test",
+                    style: TextStyle(
+                      //color: Colors.white,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
+              SizedBox(
+                width: 100.0,
+                height: 100.0,
+                child: Card(
+                  child: Text(
+                    "Test",
+                    style: TextStyle(
+                      //color: Colors.white,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 100.0,
+                height: 100.0,
+                child: Card(
+                  child: Text(
+                    "Test",
+                    style: TextStyle(
+                      //color: Colors.white,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
+        bottomNavigationBar: FancyBottomNavigation(
+          tabs: [
+            TabData(iconData: Icons.open_in_browser, title: "Installed"),
+            TabData(iconData: Icons.search, title: "Search"),
+            TabData(iconData: FontAwesomeIcons.cartPlus, title: "Browse")
+          ],
+          onTabChangedListener: (position) {
+            setState(() {
+              // currentPage = position;
+            });
+          },
         ),
       ),
     );
