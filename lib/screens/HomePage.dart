@@ -8,6 +8,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> installedGames =
+      new List<String>(); // TODO: Replace games with real games lis=t
+
+  @override
+  void initState() {
+    super.initState();
+    installedGames.add("Game 0");
+    installedGames.add("Game 1");
+    installedGames.add("Game 2");
+    installedGames.add("Game 3");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,52 +33,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         body: SafeArea(
-          child: Row(
-            children: <Widget>[
-              SizedBox(
-                width: 100.0,
-                height: 100.0,
-                child: Card(
-                  child: Text(
-                    "Test",
-                    style: TextStyle(
-                      //color: Colors.white,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 100.0,
-                height: 100.0,
-                child: Card(
-                  child: Text(
-                    "Test",
-                    style: TextStyle(
-                      //color: Colors.white,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 100.0,
-                height: 100.0,
-                child: Card(
-                  child: Text(
-                    "Test",
-                    style: TextStyle(
-                      //color: Colors.white,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+         child: GridView.builder(gridDelegate: null, itemBuilder: null),
         ),
         bottomNavigationBar: FancyBottomNavigation(
           tabs: [
