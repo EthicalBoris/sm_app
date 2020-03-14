@@ -24,8 +24,8 @@ class _HomePageState extends State<HomePage> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
           colors: [Colors.blue, Colors.red],
         ),
       ),
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 20.0),
                 child: Text(
-                  "Installed Games",
+                  "All Items Games",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,
@@ -66,9 +66,10 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: FancyBottomNavigation(
           tabs: [
-            TabData(iconData: Icons.open_in_browser, title: "Installed"),
-            TabData(iconData: Icons.search, title: "Search"),
-            TabData(iconData: FontAwesomeIcons.cartPlus, title: "Browse")
+            TabData(iconData: FontAwesomeIcons.storeAlt, title: "Daily Shop"),
+            TabData(iconData: FontAwesomeIcons.clock, title: "Upcoming"),
+            TabData(iconData: Icons.format_list_bulleted, title: "All Items"),
+            TabData(iconData: FontAwesomeIcons.map, title: "Maps")
           ],
           onTabChangedListener: (position) {
             setState(() {
