@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sm_app/data/Game.dart';
+import 'package:sm_app/widgets/GameRow.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,18 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> installedGames =
-      new List<String>(); // TODO: Replace games with real games list
+  List<Game> installedGames = games; // TODO: Replace games with real games list
 
   @override
   void initState() {
     super.initState();
-    Image.asset("game0.jpg");
-
-    installedGames.add("Game 0");
-    installedGames.add("Game 1");
-    installedGames.add("Game 2");
-    installedGames.add("Game 3");
   }
 
   @override
@@ -36,6 +33,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).accentColor,
         body: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 20.0),
@@ -46,6 +44,21 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height - 139,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: installedGames.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () => {
+                        // TODO: Implement starting a game
+                      },
+                      child: GameRow(),
+                    );
+                  },
                 ),
               ),
             ],
