@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Position changes container widget.
+    // TODO: Separation of Widgets into pages.
+    // TODO: Implement Navbar page Swap.
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 20.0),
                 child: Text(
-                  "All Items Games",
+                  "All Items",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,
@@ -74,6 +77,7 @@ class _HomePageState extends State<HomePage> {
           onTabChangedListener: (position) {
             setState(() {
               // currentPage = position;
+              print(position);
             });
           },
         ),
