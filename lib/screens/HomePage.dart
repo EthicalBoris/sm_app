@@ -9,11 +9,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> installedGames =
-      new List<String>(); // TODO: Replace games with real games lis=t
+      new List<String>(); // TODO: Replace games with real games list
 
   @override
   void initState() {
     super.initState();
+    Image.asset("game0.jpg");
+
     installedGames.add("Game 0");
     installedGames.add("Game 1");
     installedGames.add("Game 2");
@@ -33,7 +35,21 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         body: SafeArea(
-         child: GridView.builder(gridDelegate: null, itemBuilder: null),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                child: Text(
+                  "Installed Games",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: FancyBottomNavigation(
           tabs: [
