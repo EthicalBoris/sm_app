@@ -4,6 +4,10 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sm_app/data/Game.dart';
+import 'package:sm_app/screens/DailyShopPage.dart';
+import 'package:sm_app/screens/ItemsPage.dart';
+import 'package:sm_app/screens/MapsPage.dart';
+import 'package:sm_app/screens/UpcomingPage.dart';
 import 'package:sm_app/widgets/GameRow.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,10 +17,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Game> installedGames = games; // TODO: Replace games with real games list
+  int currentPage;
+  Widget contentWidget;
 
   @override
   void initState() {
     super.initState();
+    currentPage = 0;
   }
 
   @override
@@ -24,6 +31,44 @@ class _HomePageState extends State<HomePage> {
     // TODO: Position changes container widget.
     // TODO: Separation of Widgets into pages.
     // TODO: Implement Navbar page Swap.
+
+    // TODO: All items
+
+    switch (currentPage) {
+      case 0:
+        {
+          // TODO: Daily Shop
+          contentWidget = DailyShopPage();
+        }
+        break;
+
+      case 1:
+        {
+          // TODO: Upcoming
+          contentWidget = UpcomingPage();
+        }
+        break;
+
+      case 2:
+        {
+          // TODO: All Items Page
+          contentWidget = ItemsPage();
+        }
+        break;
+
+      case 3:
+        {
+          // TODO: Maps
+          contentWidget = MapsPage();
+        }
+        break;
+
+      default:
+        {
+          contentWidget = Container();
+        }
+    }
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -35,37 +80,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, top: 20.0),
-                child: Text(
-                  "All Items",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height - 139,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: installedGames.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () => {
-                        // TODO: Implement starting a game
-                      },
-                      child: GameRow(),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+          child: contentWidget,
         ),
         bottomNavigationBar: FancyBottomNavigation(
           tabs: [
@@ -76,7 +91,7 @@ class _HomePageState extends State<HomePage> {
           ],
           onTabChangedListener: (position) {
             setState(() {
-              // currentPage = position;
+              currentPage = position;
               print(position);
             });
           },
