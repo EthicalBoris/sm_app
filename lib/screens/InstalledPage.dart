@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sm_app/data/Game.dart';
-import 'package:sm_app/widgets/GameRow.dart';
 
 class InstalledPage extends StatelessWidget {
   @override
@@ -19,7 +17,7 @@ class InstalledPage extends StatelessWidget {
             ),
           ),
         ),
-      Text("Grid of games will be below")
+      Text("Grid of games will be below"),
       ],
     );
   }

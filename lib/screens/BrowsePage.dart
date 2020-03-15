@@ -20,18 +20,19 @@ class BrowsePage extends StatelessWidget {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height - 160,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: games.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () => {
-                  // TODO: Implement starting a game
-                },
-                child: GameRow(),
-              );
-            },
+          child: Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: games.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () => {
+                    // TODO: Implement starting a game
+                  },
+                  child: GameRow(),
+                );
+              },
+            ),
           ),
         ),
       ],
