@@ -17,7 +17,24 @@ class InstalledPage extends StatelessWidget {
             ),
           ),
         ),
-      Text("Grid of games will be below"),
+        Expanded(
+          child: GridView.builder(
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            itemCount: 20,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Container(
+                    color: Colors.red,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }
