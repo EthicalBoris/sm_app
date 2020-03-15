@@ -1,14 +1,7 @@
-import 'dart:ffi';
-
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sm_app/data/Game.dart';
-import 'package:sm_app/screens/DailyShopPage.dart';
-import 'package:sm_app/screens/ItemsPage.dart';
-import 'package:sm_app/screens/MapsPage.dart';
-import 'package:sm_app/screens/UpcomingPage.dart';
-import 'package:sm_app/widgets/GameRow.dart';
 
 import 'BrowsePage.dart';
 import 'InstalledPage.dart';

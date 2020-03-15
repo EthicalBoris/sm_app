@@ -19,6 +19,7 @@ class Game {
 
   bool isDownloaded() {
     /// Returns whether or not a game is downloaded
+    return false;
   }
 }
 
