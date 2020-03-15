@@ -10,6 +10,9 @@ import 'package:sm_app/screens/MapsPage.dart';
 import 'package:sm_app/screens/UpcomingPage.dart';
 import 'package:sm_app/widgets/GameRow.dart';
 
+import 'BrowsePage.dart';
+import 'InstalledPage.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -37,29 +40,15 @@ class _HomePageState extends State<HomePage> {
     switch (currentPage) {
       case 0:
         {
-          // TODO: Daily Shop
-          contentWidget = DailyShopPage();
+          // TODO: Installed
+          contentWidget = InstalledPage();
         }
         break;
 
       case 1:
         {
-          // TODO: Upcoming
-          contentWidget = UpcomingPage();
-        }
-        break;
-
-      case 2:
-        {
-          // TODO: All Items Page
-          contentWidget = ItemsPage();
-        }
-        break;
-
-      case 3:
-        {
-          // TODO: Maps
-          contentWidget = MapsPage();
+          // TODO: Browse
+          contentWidget = BrowsePage();
         }
         break;
 
@@ -84,10 +73,8 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: FancyBottomNavigation(
           tabs: [
-            TabData(iconData: FontAwesomeIcons.storeAlt, title: "Daily Shop"),
-            TabData(iconData: FontAwesomeIcons.clock, title: "Upcoming"),
-            TabData(iconData: Icons.format_list_bulleted, title: "All Items"),
-            TabData(iconData: FontAwesomeIcons.map, title: "Maps")
+            TabData(iconData: Icons.open_in_browser, title: "Installed"),
+            TabData(iconData: FontAwesomeIcons.search, title: "Browse"),
           ],
           onTabChangedListener: (position) {
             setState(() {

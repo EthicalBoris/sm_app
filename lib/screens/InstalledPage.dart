@@ -1,8 +1,8 @@
-import 'package:flutter/Material.dart';
+import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 import 'package:sm_app/widgets/GameRow.dart';
 
-class ItemsPage extends StatelessWidget {
+class InstalledPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -11,7 +11,7 @@ class ItemsPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20.0, top: 20.0),
           child: Text(
-            "All Items",
+            "Installed Games",
             style: TextStyle(
               color: Colors.white,
               fontSize: 30.0,
