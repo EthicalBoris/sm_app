@@ -20,7 +20,7 @@ class BrowsePage extends StatelessWidget {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height - 139,
+          height: MediaQuery.of(context).size.height - 150,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             itemCount: games.length,

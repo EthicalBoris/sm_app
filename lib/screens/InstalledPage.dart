@@ -19,21 +19,7 @@ class InstalledPage extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: MediaQuery.of(context).size.height - 139,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: games.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () => {
-                  // TODO: Implement starting a game
-                },
-                child: GameRow(),
-              );
-            },
-          ),
-        ),
+      Text("Grid of games will be below")
       ],
     );
   }
