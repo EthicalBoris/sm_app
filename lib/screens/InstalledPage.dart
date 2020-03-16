@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InstalledPage extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Column(

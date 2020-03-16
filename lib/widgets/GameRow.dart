@@ -28,8 +28,8 @@ class GameRow extends StatelessWidget {
       alignment: FractionalOffset.centerLeft,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
-        child: new Image(
-          image: this.game.image,
+        child: new Image.asset(
+          game.image,
           height: 92.0,
           width: 92.0,
         ),
