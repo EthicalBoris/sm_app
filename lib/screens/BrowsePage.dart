@@ -26,10 +26,8 @@ class BrowsePage extends StatelessWidget {
               itemCount: games.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () => {
-                    // TODO: Implement starting a game
-                  },
-                  child: GameRow(),
+                  onTap: () => {},
+                  child: GameRow(games[index]),
                 );
               },
             ),

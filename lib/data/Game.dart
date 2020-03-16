@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Game {
   /// Propreties
   String name;
-  Image image;
+  ImageProvider<dynamic> image;
   String type;
   String description;
 
@@ -27,37 +27,73 @@ List<Game> games = [
   Game.full(
     name: "Blue Game",
     type: "Adventure",
-    image: Image.asset("Game0.jpg"),
+    image: new AssetImage("assets/game0.jpg"),
     description: "A blue game",
   ),
   Game.full(
     name: "Purple Game",
     type: "Adventure",
-    image: Image.asset("Game0.jpg"),
+    image: new AssetImage("assets/game1.jpg"),
     description: "A Purple game",
   ),
   Game.full(
     name: "Lime Game",
     type: "Adventure",
-    image: Image.asset("Game0.jpg"),
+    image: new AssetImage("assets/game2.jpg"),
     description: "A Lime game",
   ),
   Game.full(
     name: "Orange Game",
     type: "Adventure",
-    image: Image.asset("Game0.jpg"),
+    image: new AssetImage("assets/game3.jpg"),
     description: "A Orange game",
   ),
   Game.full(
     name: "Orange Game",
     type: "Adventure",
-    image: Image.asset("Game0.jpg"),
+    image: new AssetImage("assets/game0.jpg"),
     description: "A Orange game",
   ),
   Game.full(
     name: "Orange Game",
     type: "Adventure",
-    image: Image.asset("Game0.jpg"),
+    image: new AssetImage("assets/game0.jpg"),
     description: "A Orange game",
+  ),
+  Game.full(
+    name: "Purple Game",
+    type: "Adventure",
+    image: new AssetImage("assets/game0.jpg"),
+    description: "A Purple game",
+  ),
+  Game.full(
+    name: "Purple Game",
+    type: "Adventure",
+    image: new AssetImage("assets/game0.jpg"),
+    description: "A Purple game",
+  ),
+  Game.full(
+    name: "Purple Game",
+    type: "Adventure",
+    image: new AssetImage("assets/game0.jpg"),
+    description: "A Purple game",
+  ),
+  Game.full(
+    name: "Purple Game",
+    type: "Adventure",
+    image: new AssetImage("assets/game0.jpg"),
+    description: "A Purple game",
+  ),
+  Game.full(
+    name: "Purple Game",
+    type: "Adventure",
+    image: new AssetImage("assets/game0.jpg"),
+    description: "A Purple game",
+  ),
+  Game.full(
+    name: "Purple Game",
+    type: "Adventure",
+    image: new AssetImage("assets/game0.jpg"),
+    description: "A Purple game",
   ),
 ];
