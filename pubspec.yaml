@@ -26,6 +26,9 @@ dependencies:
   font_awesome_flutter:
   fancy_bottom_navigation: ^0.3.2
   cloud_firestore: ^0.13.4+2
+  cached_network_image: ^2.0.0
+
+
 
 dev_dependencies:
   flutter_test:

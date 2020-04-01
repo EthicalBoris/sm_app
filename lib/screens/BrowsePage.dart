@@ -34,7 +34,7 @@ class BrowsePage extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () => {},
-                        child: GameRow(games[index]),
+                        child: GameRow(snapshot.data.documents[index]),
                       );
                     },
                   );

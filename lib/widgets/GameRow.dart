@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 
 class GameRow extends StatelessWidget {
-  final Game game;
+  final DocumentSnapshot gameSnapshot;
 
-  GameRow(this.game);
+  GameRow(this.gameSnapshot);
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +30,26 @@ class GameRow extends StatelessWidget {
       alignment: FractionalOffset.centerLeft,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
-        child: new Image.asset(
-          game.image,
+        child: CachedNetworkImage(
+          imageUrl: gameSnapshot['image'],
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
           height: 92.0,
           width: 92.0,
         ),
+        // new Image.asset(
+        //   game.image,
+        //   height: 92.0,
+        //   width: 92.0,
+        // ),
       ),
     );
   }
 
   Widget gameCard() {
     return new Container(
-      height: 124.0,
+      height: 125.0,
+      width: 400.0,
       margin: new EdgeInsets.only(left: 46.0),
       decoration: new BoxDecoration(
         color: Colors.white,
@@ -53,6 +63,7 @@ class GameRow extends StatelessWidget {
           ),
         ],
       ),
+      child: Text('test'),
     );
   }
 }
