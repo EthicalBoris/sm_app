@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 import 'package:sm_app/widgets/GameRow.dart';
@@ -21,14 +22,23 @@ class BrowsePage extends StatelessWidget {
         ),
         Container(
           child: Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: games.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () => {},
-                  child: GameRow(games[index]),
-                );
+            child: StreamBuilder(
+              stream: Firestore.instance.collection('Games').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Text('Loading...');
+                } else {
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () => {},
+                        child: GameRow(games[index]),
+                      );
+                    },
+                  );
+                }
               },
             ),
           ),
