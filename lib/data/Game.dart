@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Game {
@@ -13,6 +14,13 @@ class Game {
   Game.withImage(this.name, this.image);
   Game.full(
       {this.name, this.type, this.image, this.description, this.isInstalled});
+
+  Game.fromSnapshot(DocumentSnapshot gameSnapshot) {
+    this.name = gameSnapshot['name'];
+    this.image = gameSnapshot['image'];
+    this.type = gameSnapshot['type'];
+    this.description = gameSnapshot['desc'];
+  }
 
   bool isDownloaded() {
     /// Returns whether or not a game is downloaded

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 
 class GameRow extends StatelessWidget {
-  final DocumentSnapshot gameSnapshot;
+  final Game game;
 
-  GameRow(this.gameSnapshot);
+  GameRow(this.game);
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +28,18 @@ class GameRow extends StatelessWidget {
     return new Container(
       margin: new EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: CachedNetworkImage(
-          imageUrl: gameSnapshot['image'],
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-          height: 92.0,
-          width: 92.0,
+      child: Hero(
+        tag: game.image,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: CachedNetworkImage(
+            imageUrl: game.image,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+            height: 92.0,
+            width: 92.0,
+          ),
         ),
-        // new Image.asset(
-        //   game.image,
-        //   height: 92.0,
-        //   width: 92.0,
-        // ),
       ),
     );
   }
@@ -63,7 +61,21 @@ class GameRow extends StatelessWidget {
           ),
         ],
       ),
-      child: Text('test'),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 50),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              game.name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
