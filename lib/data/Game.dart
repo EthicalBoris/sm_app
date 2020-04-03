@@ -16,6 +16,8 @@ class Game {
   bool isDownloading = false;
   bool isInstalled = false;
 
+  static List<Game> installedGames;
+
   /// Constructors
   Game(this.name);
   Game.withImage(this.name, this.imageUrl);
@@ -53,6 +55,7 @@ class Game {
         print("$recieved/$total");
 
         if (recieved == total) {
+          // Download has finished
           this.isDownloading = false;
           print("Finished downloading: ${this.name}");
           this.installGame(downloadDestination);
@@ -65,11 +68,9 @@ class Game {
       // Debug error message
       print(e);
     }
-
-    print("Finished Installing: ${this.name}");
   }
 
-  void installGame(String filePath) {
+  Future<void> installGame(String filePath) async {
     /*
     - installs game from zip file
     - deletes zip file 
@@ -82,8 +83,41 @@ class Game {
     // Decode the Zip file
     final archive = ZipDecoder().decodeBytes(bytes);
 
+    Directory dir = await getApplicationDocumentsDirectory();
     // Extract the contents of the Zip archive to disk.
-    
+    try {
+      for (final archiveFile in archive) {
+        final filename = archiveFile.name;
+        if (archiveFile.isFile) {
+          final data = archiveFile.content as List<int>;
+          File('${dir.path}/Installed Games/' + filename)
+            ..createSync(recursive: true)
+            ..writeAsBytesSync(data);
+        } else {
+          Directory('${dir.path}/Installed Games/' + filename)
+            ..create(recursive: true);
+        }
+      }
+    } catch (e) {
+      print("Error when installing." + e);
+    }
+
+    this.isInstalled = true;
+    refreshInstalledGames();
+    print('Finished Installing: ${this.name}');
+  }
+
+  Future<void> refreshInstalledGames() async {
+    Directory dir = await getApplicationDocumentsDirectory();
+    Directory installDir = Directory("${dir.path}/Installed Games");
+    if (await installDir.exists()) {
+      installDir.list().listen((FileSystemEntity entity) {
+        print(entity.toString());
+        print("Found: ${entity.path}");
+      });
+    } else {
+      print('No installed games');
+    }
   }
 }
 
