@@ -28,12 +28,12 @@ class GameRow extends StatelessWidget {
     return new Container(
       margin: new EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
-      child: Hero(
-        tag: game.image,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: Hero(
+          tag: game.imageUrl,
           child: CachedNetworkImage(
-            imageUrl: game.image,
+            imageUrl: game.imageUrl,
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
             height: 92.0,
@@ -67,10 +67,11 @@ class GameRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              game.name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Text(
+                game.name,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
             ),
           ],

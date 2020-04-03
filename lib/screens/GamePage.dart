@@ -32,25 +32,25 @@ class _GamePageState extends State<GamePage> {
                     )
                   ],
                 ),
-                child: Hero(
-                  tag: widget.game.image,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.elliptical(30, 30),
-                      bottomRight: Radius.elliptical(30, 30),
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.elliptical(30, 30),
+                    bottomRight: Radius.elliptical(30, 30),
+                  ),
+                  child: Hero(
+                    tag: widget.game.imageUrl,
                     child: CachedNetworkImage(
-                      imageUrl: widget.game.image,
+                      imageUrl: widget.game.imageUrl,
                       placeholder: (context, url) =>
                           CircularProgressIndicator(),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-
-                    // Image(
-                    //   image: AssetImage(widget.game.image),
-                    //   fit: BoxFit.cover,
-                    // ),
                   ),
+
+                  // Image(
+                  //   imageUrl: AssetImage(widget.game.imageUrl),
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
               ),
               Padding(
@@ -108,13 +108,20 @@ class _GamePageState extends State<GamePage> {
                   minWidth: 100.0,
                   height: 35,
                   color: Colors.green,
-                  child: new Text('Install',
+                  child: new Text('Download',
                       style:
                           new TextStyle(fontSize: 16.0, color: Colors.white)),
-                  onPressed: () {},
+                  onPressed: () {
+                    // Install the game zip and unzip at a target location.
+                    widget.game.downloadGame();
+                  },
                 ),
               ),
             ],
+          ),
+          Text(
+            widget.game.description,
+            style: TextStyle(fontSize: 20.0),
           ),
         ],
       ),
