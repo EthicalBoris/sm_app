@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 import 'package:sm_app/data/InstalledGame.dart';
+import 'package:sm_app/screens/GamePlayPage.dart';
 
 class InstalledPage extends StatefulWidget {
   @override
@@ -44,8 +45,19 @@ class _InstalledPageState extends State<InstalledPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
-                  child: Image.file(
-                      InstalledGame.installedGames[index].thumbnail.file),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GamePlayPage(
+                                  game: InstalledGame.installedGames[index],
+                                )),
+                      );
+                    },
+                    child: Image.file(
+                        InstalledGame.installedGames[index].thumbnail.file),
+                  ),
                 ),
               );
             },

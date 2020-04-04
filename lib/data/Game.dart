@@ -134,7 +134,7 @@ class Game {
     } catch (e) {
       print("Error when installing." + e);
     }
-    this.downloadUrl = "${dir.path}/Installed Games/${this.name}/";
+    this.downloadUrl = "${dir.path}/Installed Games/${this.name}";
     this.downloadGameImage();
     // TODO: delete zip file
     Directory zipFile = Directory(filePath);
