@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Game> installedGames = games; // TODO: Replace games with real games list
+  //List<Game> installedGames = games; // TODO: Replace games with real games list
   int currentPage;
   Widget contentWidget;
 

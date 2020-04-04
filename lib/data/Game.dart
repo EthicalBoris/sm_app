@@ -1,11 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:archive/archive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:path/path.dart' as p;
 
+import 'package:archive/archive.dart';
+
+part 'Game.g.dart';
+
+@JsonSerializable()
 class Game {
   /// Propreties
   String name;
@@ -16,7 +23,7 @@ class Game {
   bool isDownloading = false;
   bool isInstalled = false;
 
-  static List<Game> installedGames;
+  static List<Game> installedGames = new List<Game>();
 
   /// Constructors
   Game(this.name);
@@ -27,7 +34,6 @@ class Game {
       this.imageUrl,
       this.description,
       this.isInstalled});
-
   Game.fromSnapshot(DocumentSnapshot gameSnapshot) {
     this.name = gameSnapshot['name'];
     this.imageUrl = gameSnapshot['imageUrl'];
@@ -35,7 +41,8 @@ class Game {
     this.description = gameSnapshot['desc'];
     this.downloadUrl = gameSnapshot['download'];
   }
-
+  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
+  Map<String, dynamic> toJson() => _$GameToJson(this);
   bool isDownloaded() {
     /// Returns whether or not a game is downloaded
     return false;
@@ -101,18 +108,32 @@ class Game {
     } catch (e) {
       print("Error when installing." + e);
     }
-
-    this.isInstalled = true;
-    refreshInstalledGames();
+    // TODO: delete zip file
+    
     print('Finished Installing: ${this.name}');
+
+    // store game in json format.
+    String gameJson = jsonEncode(this);
+    File jsonFile = File("${dir.path}/Installed Games/${this.name}/json.json");
+    jsonFile.writeAsString(gameJson);
+    print('Serialised: ${this.name}');
+
+    this.isInstalled = true; 
+
+
+    refreshInstalledGames();
   }
 
-  Future<void> refreshInstalledGames() async {
+  static Future<void> refreshInstalledGames() async {
+    // Refreshes the installed games list
     Directory dir = await getApplicationDocumentsDirectory();
     Directory installDir = Directory("${dir.path}/Installed Games");
+
+    installedGames.clear();
+
     if (await installDir.exists()) {
       installDir.list().listen((FileSystemEntity entity) {
-        print(entity.toString());
+        print("File: " + p.basename(entity.toString()));
         print("Found: ${entity.path}");
       });
     } else {
@@ -120,51 +141,3 @@ class Game {
     }
   }
 }
-
-List<Game> games = [
-  Game.full(
-    name: "Blue Game",
-    type: "Adventure",
-    imageUrl: "assets/game0.jpg",
-    description: "A blue game",
-    isInstalled: true,
-  ),
-  Game.full(
-    name: "Purple Game",
-    type: "Adventure",
-    imageUrl: "assets/game1.jpg",
-    description: "A Purple game",
-    isInstalled: true,
-  ),
-  Game.full(
-    name: "Lime Game",
-    type: "Adventure",
-    imageUrl: "assets/game2.jpg",
-    description: "A Lime game",
-  ),
-  Game.full(
-    name: "Orange Game",
-    type: "Adventure",
-    imageUrl: "assets/game3.jpg",
-    description: "A Orange game",
-    isInstalled: true,
-  ),
-  Game.full(
-    name: "Orange Game",
-    type: "Adventure",
-    imageUrl: "assets/game0.jpg",
-    description: "A Orange game",
-  ),
-  Game.full(
-    name: "Orange Game",
-    type: "Adventure",
-    imageUrl: "assets/game0.jpg",
-    description: "A Orange game",
-  ),
-  Game.full(
-    name: "Purple Game",
-    type: "Adventure",
-    imageUrl: "assets/game0.jpg",
-    description: "A Purple game",
-  ),
-];
