@@ -1,7 +1,23 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sm_app/data/Game.dart';
+import 'package:sm_app/data/InstalledGame.dart';
 
-class InstalledPage extends StatelessWidget {
-  
+class InstalledPage extends StatefulWidget {
+  @override
+  _InstalledPageState createState() => _InstalledPageState();
+}
+
+class _InstalledPageState extends State<InstalledPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      Game.refreshInstalledGames();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,15 +38,14 @@ class InstalledPage extends StatelessWidget {
           child: GridView.builder(
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-            itemCount: 20,
+            itemCount: InstalledGame.installedGames.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    color: Colors.red,
-                  ),
+                  child: Image.file(
+                      InstalledGame.installedGames[index].thumbnail.file),
                 ),
               );
             },

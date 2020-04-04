@@ -10,6 +10,8 @@ import 'package:path/path.dart' as p;
 
 import 'package:archive/archive.dart';
 
+import 'InstalledGame.dart';
+
 part 'Game.g.dart';
 
 @JsonSerializable()
@@ -23,10 +25,17 @@ class Game {
   bool isDownloading = false;
   bool isInstalled = false;
 
-  static List<Game> installedGames = new List<Game>();
-
   /// Constructors
   Game(this.name);
+  Game.fromGame(Game game) {
+    this.name = game.name;
+    this.imageUrl = game.imageUrl;
+    this.type = game.type;
+    this.description = game.description;
+    this.downloadUrl = game.downloadUrl;
+    this.isDownloading = game.isDownloading;
+    this.isInstalled = game.isInstalled;
+  }
   Game.withImage(this.name, this.imageUrl);
   Game.full(
       {this.name,
@@ -52,7 +61,7 @@ class Game {
     Dio dio = Dio();
 
     try {
-      var dir = await getApplicationDocumentsDirectory();
+      Directory dir = await getApplicationDocumentsDirectory();
       String downloadDestination =
           "${dir.path}/Installed Games/${this.name}.zip";
 
@@ -75,6 +84,23 @@ class Game {
       // Debug error message
       print(e);
     }
+  }
+
+  Future<void> downloadGameImage() async {
+    Dio dio = Dio();
+    try {
+      Directory dir = await getApplicationDocumentsDirectory();
+      String downloadDestination =
+          "${dir.path}/Installed Games/${this.name}/image.jpg";
+
+      await dio.download(this.imageUrl, downloadDestination,
+          onReceiveProgress: (recieved, total) {
+        if (recieved == total) {
+          // Download has finished
+          print("Finished downloading: ${this.name} image");
+        }
+      });
+    } catch (e) {}
   }
 
   Future<void> installGame(String filePath) async {
@@ -108,18 +134,20 @@ class Game {
     } catch (e) {
       print("Error when installing." + e);
     }
+    this.downloadUrl = "${dir.path}/Installed Games/${this.name}/";
+    this.downloadGameImage();
     // TODO: delete zip file
-    
+    Directory zipFile = Directory(filePath);
+    zipFile.deleteSync(recursive: true);
+
     print('Finished Installing: ${this.name}');
+    this.isInstalled = true;
 
     // store game in json format.
     String gameJson = jsonEncode(this);
     File jsonFile = File("${dir.path}/Installed Games/${this.name}/json.json");
     jsonFile.writeAsString(gameJson);
     print('Serialised: ${this.name}');
-
-    this.isInstalled = true; 
-
 
     refreshInstalledGames();
   }
@@ -129,12 +157,18 @@ class Game {
     Directory dir = await getApplicationDocumentsDirectory();
     Directory installDir = Directory("${dir.path}/Installed Games");
 
-    installedGames.clear();
+    InstalledGame.installedGames.clear();
 
     if (await installDir.exists()) {
       installDir.list().listen((FileSystemEntity entity) {
         print("File: " + p.basename(entity.toString()));
         print("Found: ${entity.path}");
+
+        File jsonFile = File("${entity.path}/json.json");
+        Game foundGame =
+            Game.fromJson(json.decode(jsonFile.readAsStringSync()));
+
+        InstalledGame.installedGames.add(new InstalledGame(foundGame));
       });
     } else {
       print('No installed games');
