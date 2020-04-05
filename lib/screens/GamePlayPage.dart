@@ -18,14 +18,14 @@ class GamePlayPage extends StatefulWidget {
 }
 
 class _GamePlayPageState extends State<GamePlayPage> {
+  bool serverStarted = false;
+
   ValueNotifier closeServer = ValueNotifier(false);
 
   InternetAddress HOST = InternetAddress.loopbackIPv4;
   static const PORT = 8080;
 
   VirtualDirectory staticFiles = new VirtualDirectory('.');
-
-  HttpServer server;
 
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
@@ -47,8 +47,15 @@ class _GamePlayPageState extends State<GamePlayPage> {
     await HttpServer.bind(HOST, PORT).then((server) {
       server.listen(staticFiles.serveRequest);
       closeServer.addListener(() {
+        setState(() {
+          serverStarted = false;
+        });
         server.close();
         print("Closed server");
+      });
+
+      setState(() {
+        serverStarted = true;
       });
 
       return null;
@@ -60,25 +67,21 @@ class _GamePlayPageState extends State<GamePlayPage> {
     _loadHtmlFromAssets();
 
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              closeServer.value = true;
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(widget.game.name)),
-      body: Text('Test'),
-      /*WebView(
-        initialUrl: 'www.google.com',//HOST.address + "/index.html",
-        javascriptMode: JavascriptMode.unrestricted,
-        /*
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller.complete(webViewController);
-        },*/
-      ),*/
-    );
+        appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                closeServer.value = true;
+                Navigator.pop(context);
+              },
+            ),
+            title: Text(widget.game.name)),
+        body: serverStarted
+            ? WebView(
+                initialUrl: "http://127.0.0.1:8080/index.html",
+                javascriptMode: JavascriptMode.unrestricted,
+              )
+            : Center(child: Text("Loading...")));
   }
 
   _loadHtmlFromAssets() async {
