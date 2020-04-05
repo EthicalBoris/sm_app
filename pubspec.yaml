@@ -32,6 +32,8 @@ dependencies:
   archive: any
   json_annotation: ^3.0.1
   webview_flutter: ^0.3.4
+  http_server: ^0.9.8+1
+  url_launcher: ^5.4.2
 
 
 dev_dependencies:
