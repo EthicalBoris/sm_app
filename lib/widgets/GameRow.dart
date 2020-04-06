@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 
@@ -28,10 +30,15 @@ class GameRow extends StatelessWidget {
       alignment: FractionalOffset.centerLeft,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
-        child: new Image.asset(
-          game.image,
-          height: 92.0,
-          width: 92.0,
+        child: Hero(
+          tag: game.imageUrl,
+          child: CachedNetworkImage(
+            imageUrl: game.imageUrl,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+            height: 92.0,
+            width: 92.0,
+          ),
         ),
       ),
     );
@@ -39,7 +46,8 @@ class GameRow extends StatelessWidget {
 
   Widget gameCard() {
     return new Container(
-      height: 124.0,
+      height: 125.0,
+      width: 400.0,
       margin: new EdgeInsets.only(left: 46.0),
       decoration: new BoxDecoration(
         color: Colors.white,
@@ -53,6 +61,40 @@ class GameRow extends StatelessWidget {
           ),
         ],
       ),
+      child: Padding(
+          padding: const EdgeInsets.only(left: 50),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                left: 0.0,
+                top: 15.0,
+                child: Row(
+                  children: <Widget>[
+                    Text(game.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        )),
+                    SizedBox(
+                      width: 100.0,
+                    ),
+                    Icon(
+                      Icons.gamepad,
+                      size: 15.0,
+                    ),
+                    Text(game.type,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                        ))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 40.0),
+                child: Container(child: Text(game.description)),
+              ),
+            ],
+          )),
     );
   }
 }
