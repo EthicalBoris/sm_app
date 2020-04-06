@@ -13,11 +13,44 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  Widget downloadButton() {
+    if (widget.game.isInstalled) {
+      return MaterialButton(
+        minWidth: 100.0,
+        height: 35,
+        color: Colors.grey,
+        child: Text('Installed',
+            style: TextStyle(fontSize: 16.0, color: Colors.white)),
+        onPressed: () {},
+      );
+    } else {
+      return MaterialButton(
+        minWidth: 100.0,
+        height: 35,
+        color: Colors.green,
+        child: Text('Download',
+            style: TextStyle(fontSize: 16.0, color: Colors.white)),
+        onPressed: () async {
+          // Install the game zip and unzip at a target location.
+          setState(() {
+            widget.game.isDownloading = true;
+          });
+          await widget.game.downloadGame().then((value) {
+            try {
+              setState(() {
+                widget.game.isDownloading = false;
+              });
+            } catch (e) {}
+          });
+        },
+      );
+    }
   }
 
   @override
@@ -53,11 +86,6 @@ class _GamePageState extends State<GamePage> {
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
-
-                  // Image(
-                  //   imageUrl: AssetImage(widget.game.imageUrl),
-                  //   fit: BoxFit.cover,
-                  // ),
                 ),
               ),
               Padding(
@@ -109,21 +137,11 @@ class _GamePageState extends State<GamePage> {
                 ),
               ),
               Positioned(
-                right: 20.0,
-                bottom: 20.0,
-                child: MaterialButton(
-                  minWidth: 100.0,
-                  height: 35,
-                  color: Colors.green,
-                  child: new Text('Download',
-                      style:
-                          new TextStyle(fontSize: 16.0, color: Colors.white)),
-                  onPressed: () {
-                    // Install the game zip and unzip at a target location.
-                    widget.game.downloadGame();
-                  },
-                ),
-              ),
+                  right: 20.0,
+                  bottom: 20.0,
+                  child: widget.game.isDownloading
+                      ? CircularProgressIndicator()
+                      : downloadButton()),
             ],
           ),
           Text(

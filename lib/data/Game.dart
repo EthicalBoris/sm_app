@@ -23,6 +23,7 @@ class Game {
   String description;
   String downloadUrl = "";
   bool isDownloading = false;
+  double downloadPercent = 0;
   bool isInstalled = false;
 
   /// Constructors
@@ -68,7 +69,7 @@ class Game {
       this.isDownloading = true;
       await dio.download(this.downloadUrl, downloadDestination,
           onReceiveProgress: (recieved, total) {
-        print("$recieved/$total");
+        downloadPercent = (recieved / total);
 
         if (recieved == total) {
           // Download has finished

@@ -55,8 +55,42 @@ class _InstalledPageState extends State<InstalledPage> {
                                 )),
                       );
                     },
-                    child: Image.file(
-                        InstalledGame.installedGames[index].thumbnail.file),
+                    child: Stack(
+                      children: <Widget>[
+                        Image.file(
+                            InstalledGame.installedGames[index].thumbnail.file),
+                        Positioned(
+                          left: 5.0,
+                          bottom: 20.0,
+                          right: 1,
+                          child: Text(
+                            InstalledGame.installedGames[index].name,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                        Positioned(
+                          left: 6.0,
+                          bottom: 10.0,
+                          right: 1,
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.gamepad,size: 10.0,color: Colors.white,),
+                              Text(
+                                InstalledGame.installedGames[index].type,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

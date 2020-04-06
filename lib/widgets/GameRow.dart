@@ -62,21 +62,39 @@ class GameRow extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 50),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Text(
-                game.name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          padding: const EdgeInsets.only(left: 50),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                left: 0.0,
+                top: 15.0,
+                child: Row(
+                  children: <Widget>[
+                    Text(game.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        )),
+                    SizedBox(
+                      width: 100.0,
+                    ),
+                    Icon(
+                      Icons.gamepad,
+                      size: 15.0,
+                    ),
+                    Text(game.type,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                        ))
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+              Padding(
+                padding: EdgeInsets.only(top: 40.0),
+                child: Container(child: Text(game.description)),
+              ),
+            ],
+          )),
     );
   }
 }
