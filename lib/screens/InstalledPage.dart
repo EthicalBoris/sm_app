@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app/data/Game.dart';
 import 'package:sm_app/data/InstalledGame.dart';
 import 'package:sm_app/screens/GamePlayPage.dart';
-import 'dart:io';
 
 import 'package:sm_app/widgets/DeleteDialog.dart';
 
@@ -15,7 +13,6 @@ class InstalledPage extends StatefulWidget {
 class _InstalledPageState extends State<InstalledPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     refresh();
   }

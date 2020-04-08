@@ -1,7 +1,6 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sm_app/data/Game.dart';
 
 import 'BrowsePage.dart';
 import 'InstalledPage.dart';
@@ -12,7 +11,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //List<Game> installedGames = games; // TODO: Replace games with real games list
   int currentPage;
   Widget contentWidget;
 
@@ -24,23 +22,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Position changes container widget.
-    // TODO: Separation of Widgets into pages.
-    // TODO: Implement Navbar page Swap.
-
-    // TODO: All items
-
     switch (currentPage) {
       case 0:
         {
-          // TODO: Installed
           contentWidget = InstalledPage();
         }
         break;
 
       case 1:
         {
-          // TODO: Browse
           contentWidget = BrowsePage();
         }
         break;

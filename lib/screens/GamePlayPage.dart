@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:http_server/http_server.dart';
 import 'package:sm_app/data/InstalledGame.dart';
-import 'package:flutter/services.dart';
 
 class GamePlayPage extends StatefulWidget {
   final InstalledGame game;
@@ -22,14 +20,13 @@ class _GamePlayPageState extends State<GamePlayPage> {
 
   ValueNotifier closeServer = ValueNotifier(false);
 
-  InternetAddress HOST = InternetAddress.loopbackIPv4;
+  InternetAddress host = InternetAddress.loopbackIPv4;
   static const PORT = 8080;
 
   static VirtualDirectory staticFiles = new VirtualDirectory('.');
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     staticFiles = new VirtualDirectory(widget.game.installDir.path)
@@ -41,7 +38,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
   }
 
   startServer() async {
-    await HttpServer.bind(HOST, PORT).then((server) {
+    await HttpServer.bind(host, PORT).then((server) {
       server.listen(staticFiles.serveRequest);
 
       closeServer.addListener(() {

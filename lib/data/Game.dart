@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
@@ -137,7 +136,6 @@ class Game {
     }
     this.downloadUrl = "${dir.path}/Installed Games/${this.name}";
     this.downloadGameImage();
-    // TODO: delete zip file
     Directory zipFile = Directory(filePath);
     zipFile.deleteSync(recursive: true);
 

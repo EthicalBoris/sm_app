@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sm_app/data/Game.dart';
-import 'dart:io';
 
 class GamePage extends StatefulWidget {
   final Game game;
@@ -18,7 +17,6 @@ class _GamePageState extends State<GamePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
