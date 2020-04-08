@@ -10,8 +10,13 @@ class InstalledGame extends Game {
 
   static List<InstalledGame> installedGames = new List<InstalledGame>();
 
-  InstalledGame(Game game) : super.fromGame(game)  {
+  InstalledGame(Game game) : super.fromGame(game) {
     installDir = Directory(game.downloadUrl);
     thumbnail = FileImage(File("${game.downloadUrl}/image.jpg"));
+  }
+
+  static void deleteGame(int index) {
+    installedGames[index].installDir.delete(recursive: true);
+    installedGames.removeAt(index);
   }
 }

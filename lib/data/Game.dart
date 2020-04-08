@@ -153,7 +153,7 @@ class Game {
     refreshInstalledGames();
   }
 
-  static Future<void> refreshInstalledGames() async {
+  static Future<List<InstalledGame>> refreshInstalledGames() async {
     // Refreshes the installed games list
     Directory dir = await getApplicationDocumentsDirectory();
     Directory installDir = Directory("${dir.path}/Installed Games");
@@ -174,5 +174,7 @@ class Game {
     } else {
       print('No installed games');
     }
+    
+    return InstalledGame.installedGames;
   }
 }
